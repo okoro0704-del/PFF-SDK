@@ -8,7 +8,7 @@ import type { SubmitFaceTemplateDto } from "./dto/submit-face-template.dto";
 import type { SelectTargetDto } from "./dto/select-target.dto";
 import type { SubmitLivenessResponseDto } from "./dto/submit-liveness-response.dto";
 import {
-  BLIDE_ACCOUNTS_WIPED, BLIDE_COMPLETED, BLIDE_EXECUTING, BLIDE_FAILED,
+  BLIDE_COMPLETED, BLIDE_EXECUTING, BLIDE_FAILED,
   BLIDE_IDENTITY_UNLOCKED, BLIDE_INITIATED, BLIDE_LIVENESS_CHALLENGED,
   BLIDE_LIVENESS_FAILED, BLIDE_LIVENESS_VERIFIED, BLIDE_MANDATE_MS,
   BLIDE_NIBSS_MATCHED, BLIDE_NO_MATCH, BLIDE_SESSION_TTL_S, BLIDE_TARGET_SELECTED,

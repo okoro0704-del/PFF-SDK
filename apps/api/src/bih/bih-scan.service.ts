@@ -199,9 +199,10 @@ export class BihScanService {
     metadata: Record<string, unknown>, orgId: string) {
     try {
       await this.prisma.bihAuditLog.create({
-        data: { scanRef, eventType, nibssMatchId: nibssMatchId ?? null, bankApiResponse,
+        data: { scanRef, eventType, nibssMatchId: nibssMatchId ?? null,
           scanLatencyMs: scanLatencyMs ?? null, bankProvisioningStatus: bankProvisioningStatus ?? null,
-          operationType: operationType ?? null, metadataJson: JSON.stringify(metadata), orgId },
+          operationType: operationType ?? null,
+          metadataJson: JSON.stringify({ ...metadata, ...(bankApiResponse ? { bankApiResponse } : {}) }), orgId },
       });
     } catch { /* audit must never break main flow */ }
   }

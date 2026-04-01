@@ -64,7 +64,7 @@ export class BankDirectoryService {
     identityPayload: {
       firstName: string; lastName: string; middleName: string;
       dateOfBirth: string; gender: string; address: string;
-      stateOfOrigin: string; nibssTokenId: string;
+      stateOfOrigin?: string; nibssTokenId: string;
     },
     accountType: string,
   ): Promise<{ accountNumber: string; bankApiResponse: string; elapsedMs: number }> {

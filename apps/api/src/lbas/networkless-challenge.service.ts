@@ -196,7 +196,7 @@ export class NetworklessChallengeService {
   /** POS polls for the current TOTP display code (refreshes every 30s). */
   async getPosDisplayCode(sessionRef: string, orgId: string) {
     const session = await this.loadSession(sessionRef, orgId);
-    const seed    = this.decryptSeed(session.encryptedTotpSeed);
+    const seed    = this.decryptSeed(Buffer.from(session.encryptedTotpSeed));
     return {
       sessionRef,
       posDisplayCode: this.currentTotp(seed),
@@ -258,7 +258,7 @@ export class NetworklessChallengeService {
       );
     }
 
-    const seed    = this.decryptSeed(session.encryptedTotpSeed);
+    const seed    = this.decryptSeed(Buffer.from(session.encryptedTotpSeed));
     const valid   = this.validateTotp(dto.posCode, seed);
 
     if (!valid) {

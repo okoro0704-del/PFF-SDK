@@ -12,6 +12,24 @@ import {
 } from "class-validator";
 import { TripleGateEnrollDto } from "../../verification/dto/enroll.dto";
 
+export class BvnEnrollmentPayload extends TripleGateEnrollDto {}
+
+export class InternalEnrollmentPayload {
+  @IsArray()
+  @ArrayMinSize(10)
+  @ArrayMaxSize(10)
+  @IsString({ each: true })
+  fingerprintsTemplateB64!: string[];
+
+  @IsString()
+  @IsNotEmpty()
+  faceTemplateB64!: string;
+
+  @IsString()
+  @Matches(/^\+?[0-9]{10,15}$/)
+  mobileNumber!: string;
+}
+
 export class AccountCreateDto {
   @IsString()
   @IsIn(["bvn", "internal"])
@@ -42,20 +60,4 @@ export class AccountCreateDto {
   internalEnrollment?: InternalEnrollmentPayload;
 }
 
-export class BvnEnrollmentPayload extends TripleGateEnrollDto {}
 
-export class InternalEnrollmentPayload {
-  @IsArray()
-  @ArrayMinSize(10)
-  @ArrayMaxSize(10)
-  @IsString({ each: true })
-  fingerprintsTemplateB64!: string[];
-
-  @IsString()
-  @IsNotEmpty()
-  faceTemplateB64!: string;
-
-  @IsString()
-  @Matches(/^\+?[0-9]{10,15}$/)
-  mobileNumber!: string;
-}

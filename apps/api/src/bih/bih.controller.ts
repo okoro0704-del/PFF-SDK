@@ -28,10 +28,10 @@ import { AuthorizeOperationDto } from "./dto/authorize-operation.dto";
 @Controller("v1/bih")
 export class BihController {
   constructor(
-    private readonly scan:    BihScanService,
-    private readonly gate:    BihGateService,
-    private readonly nibss:   NibssSearchService,
-    private readonly bankDir: BankDirectoryService,
+    private readonly scan:        BihScanService,
+    private readonly gateService: BihGateService,
+    private readonly nibss:       NibssSearchService,
+    private readonly bankDir:     BankDirectoryService,
   ) {}
 
   @ApiOperation({
@@ -77,8 +77,8 @@ export class BihController {
       "Returns authorized operation result with NIBSS match reference.",
   })
   @Post(":scanRef/gate")
-  gate(@Param("scanRef") scanRef: string, @Body() dto: AuthorizeOperationDto) {
-    return this.gate.authorizeOperation(scanRef, dto);
+  authorize(@Param("scanRef") scanRef: string, @Body() dto: AuthorizeOperationDto) {
+    return this.gateService.authorizeOperation(scanRef, dto);
   }
 
   @ApiOperation({ summary: "Poll scan session lifecycle status." })

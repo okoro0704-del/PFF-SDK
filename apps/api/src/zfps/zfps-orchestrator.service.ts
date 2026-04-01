@@ -111,7 +111,7 @@ export class ZfpsOrchestratorService {
     try {
       const wrapped = await this.monitor.wrapCbsCall(
         bank.code, bank.name, req.sessionRef,
-        () => this.bankDir.pushToCbs(bank, { firstName: req.firstName, lastName: req.lastName, dateOfBirth: req.dateOfBirth, gender: req.gender, address: req.address, nibssTokenId: req.nibssTokenId, bvn: req.bvn }, req.accountType),
+        () => this.bankDir.pushToCbs(bank, { firstName: req.firstName, lastName: req.lastName, middleName: req.middleName ?? "", dateOfBirth: req.dateOfBirth, gender: req.gender, address: req.address, nibssTokenId: req.nibssTokenId }, req.accountType),
         "ACCOUNT_OPENING", orgId,
       );
       accountNumber = wrapped.result.accountNumber;

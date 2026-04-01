@@ -20,7 +20,7 @@ import { BankDirectoryService } from "./bank-directory.service";
 export class ZfoeController {
   constructor(
     private readonly harvest:    NibssHarvestService,
-    private readonly provision:  AccountProvisionService,
+    private readonly provisionSvc: AccountProvisionService,
     private readonly bankDir:    BankDirectoryService,
   ) {}
 
@@ -54,7 +54,7 @@ export class ZfoeController {
     @Param("sessionRef") sessionRef: string,
     @Body() dto: AuthorizeProvisionDto,
   ) {
-    return this.provision.authorizeAndProvision(sessionRef, dto);
+    return this.provisionSvc.authorizeAndProvision(sessionRef, dto);
   }
 
   @ApiOperation({ summary: "Get session status and decrypted identity preview (no sensitive fields)." })
