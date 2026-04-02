@@ -261,6 +261,48 @@ tr:hover td { background: rgba(255,255,255,0.02); }
 .modal__title { font-size: 1.5rem; margin-bottom: 0.5rem; color: var(--gold-bright); }
 .modal__sub   { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem; }
 
+/* ── Nav Dropdown ────────────────────────────────────────────────────────────── */
+.nav-dd { position: relative; }
+
+.nav-dd__menu {
+  position: absolute;
+  top: calc(100% + 0.65rem);
+  left: 0;
+  min-width: 230px;
+  background: var(--bg-panel);
+  border: 1px solid var(--gold-border);
+  border-radius: var(--radius);
+  padding: 0.4rem;
+  z-index: 300;
+  box-shadow: 0 16px 56px rgba(0,0,0,0.55), 0 0 0 1px rgba(201,168,76,0.06);
+  animation: ddIn 0.14s ease;
+}
+.nav-dd__menu--wide { min-width: 400px; left: auto; right: 0; }
+@keyframes ddIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+
+.nav-dd__item {
+  display: flex; align-items: center; gap: 0.5rem;
+  width: 100%; padding: 0.52rem 0.8rem;
+  background: none; border: none;
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+  font-size: 0.83rem; font-family: "Inter", sans-serif;
+  cursor: pointer; text-align: left; white-space: nowrap;
+  transition: background var(--transition), color var(--transition);
+}
+.nav-dd__item:hover { background: var(--gold-glow); color: var(--gold-bright); }
+.nav-dd__item--static { cursor: default; opacity: 0.8; }
+.nav-dd__item--static:hover { background: none; color: var(--text-muted); }
+
+.nav-dd__divider { height: 1px; background: var(--border); margin: 0.35rem 0.6rem; }
+
+.nav-dd__section {
+  font-size: 0.63rem; font-weight: 700; letter-spacing: 0.15em;
+  text-transform: uppercase; color: var(--gold);
+  padding: 0.3rem 0.8rem 0.6rem; margin: 0;
+}
+.nav-dd__grid { display: grid; grid-template-columns: 1fr 1fr; }
+
 /* ── Ledger events ───────────────────────────────────────────────────────────── */
 .ledger-row { display: flex; align-items: center; padding: 0.7rem 0; border-bottom: 1px solid var(--border); gap: 1rem; }
 .ledger-row:last-child { border-bottom: none; }

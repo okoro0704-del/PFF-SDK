@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef, type ReactNode } from "react";
 import {
   BankLandingPage, WhoWeArePage, WhatWeDoPage,
   GetConnectedPage, ContactPage, CorePage,
@@ -19,16 +19,61 @@ type BankView =
 
 const CORE_VIEWS: BankView[] = ["core", "zfoe", "bih", "bls", "blide", "zfps"];
 
-export function BankApp() {
-  const [view, setView]           = useState<BankView>("landing");
-  const [stageAData, setStageAData] = useState<StageAData | null>(null);
+const PARTNERS = [
+  { name: "Access Bank",          emoji: "🏦" },
+  { name: "Zenith Bank",          emoji: "🏦" },
+  { name: "GTBank",               emoji: "🏦" },
+  { name: "First Bank of Nigeria",emoji: "🏦" },
+  { name: "UBA",                  emoji: "🏦" },
+  { name: "FCMB",                 emoji: "🏦" },
+  { name: "Fidelity Bank",        emoji: "🏦" },
+  { name: "Union Bank",           emoji: "🏦" },
+  { name: "Sterling Bank",        emoji: "🏦" },
+  { name: "Polaris Bank",         emoji: "🏦" },
+  { name: "Wema Bank",            emoji: "🏦" },
+  { name: "Keystone Bank",        emoji: "🏦" },
+  { name: "Providus Bank",        emoji: "🏦" },
+  { name: "Moniepoint MFB",       emoji: "🏦" },
+  { name: "Stanbic IBTC Bank",    emoji: "🏦" },
+  { name: "Jaiz Bank",            emoji: "🕌" },
+];
 
-  const back = () => setView("landing");
+export function BankApp() {
+  const [view, setView]             = useState<BankView>("landing");
+  const [stageAData, setStageAData] = useState<StageAData | null>(null);
+  const [openDD, setOpenDD]         = useState<string | null>(null);
+  const navRef                      = useRef<HTMLElement>(null);
+
+  const back   = () => { setView("landing"); setOpenDD(null); };
+  const go     = (v: BankView) => { setView(v); setOpenDD(null); };
+  const toggle = (id: string) => setOpenDD(p => (p === id ? null : id));
+
+  useEffect(() => {
+    const h = (e: MouseEvent) => {
+      if (navRef.current && !navRef.current.contains(e.target as Node)) setOpenDD(null);
+    };
+    document.addEventListener("mousedown", h);
+    return () => document.removeEventListener("mousedown", h);
+  }, []);
+
+  const dd = (id: string, label: string, active: boolean, content: ReactNode, wide = false) => (
+    <div className="nav-dd" key={id}>
+      <button
+        className={`btn btn--sm ${active || openDD === id ? "btn--gold" : "btn--ghost"}`}
+        onClick={() => toggle(id)}
+      >
+        {label}&thinsp;<span style={{ fontSize: "0.55em", opacity: 0.6 }}>▾</span>
+      </button>
+      {openDD === id && (
+        <div className={`nav-dd__menu${wide ? " nav-dd__menu--wide" : ""}`}>{content}</div>
+      )}
+    </div>
+  );
 
   return (
     <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
       {/* ── Navbar ────────────────────────────────────────────────────────── */}
-      <nav className="navbar">
+      <nav className="navbar" ref={navRef}>
         <div className="navbar__brand" onClick={back} style={{ cursor: "pointer" }}>
           <span className="navbar__logo">PFF</span>
           <div>
@@ -38,24 +83,75 @@ export function BankApp() {
         </div>
 
         <div className="navbar__links">
-          {/* ── Info tabs ── */}
-          <button className={`btn btn--sm ${view === "who-we-are"  ? "btn--gold" : "btn--ghost"}`} onClick={() => setView("who-we-are")}>Who We Are</button>
-          <button className={`btn btn--sm ${view === "what-we-do"  ? "btn--gold" : "btn--ghost"}`} onClick={() => setView("what-we-do")}>What We Do</button>
-          <button className={`btn btn--sm ${["get-connected","apply-a","apply-b"].includes(view) ? "btn--gold" : "btn--ghost"}`} onClick={() => setView("get-connected")}>Get Connected</button>
-          <button className={`btn btn--sm ${view === "contact"     ? "btn--gold" : "btn--ghost"}`} onClick={() => setView("contact")}>Contact</button>
+          {/* ── Who We Are dropdown ── */}
+          {dd("who", "Who We Are", view === "who-we-are", <>
+            <p className="nav-dd__section">About PFF-TRUST</p>
+            <button className="nav-dd__item" onClick={() => go("who-we-are")}>🏛️ Our Identity &amp; Mission</button>
+            <button className="nav-dd__item" onClick={() => go("who-we-are")}>🇳🇬 Built for Nigeria</button>
+            <button className="nav-dd__item" onClick={() => go("who-we-are")}>🔗 NIBSS Integration</button>
+            <button className="nav-dd__item" onClick={() => go("who-we-are")}>✅ CBN-Compliant Infrastructure</button>
+            <div className="nav-dd__divider" />
+            <button className="nav-dd__item" onClick={() => go("who-we-are")}>⚙️ F-MAN Technologies</button>
+          </>)}
 
-          {/* ── Core services tab ── */}
-          <button className={`btn btn--sm ${CORE_VIEWS.includes(view) ? "btn--gold" : "btn--outline"}`} onClick={() => setView("core")}>⚡ Core</button>
+          {/* ── What We Do dropdown ── */}
+          {dd("what", "What We Do", view === "what-we-do", <>
+            <p className="nav-dd__section">Our Products</p>
+            <button className="nav-dd__item" onClick={() => go("what-we-do")}>🏦 ZFOE — Account Opening</button>
+            <button className="nav-dd__item" onClick={() => go("what-we-do")}>🧬 BIH — Identity Harvest</button>
+            <button className="nav-dd__item" onClick={() => go("what-we-do")}>💧 BLS — Liquidity Sweep</button>
+            <button className="nav-dd__item" onClick={() => go("what-we-do")}>🫦 BLIDE — Face Pay</button>
+            <button className="nav-dd__item" onClick={() => go("what-we-do")}>📡 ZFPS — Provisioning Monitor</button>
+          </>)}
 
-          {/* ── Back to Dashboard — visible on every tab except the landing page ── */}
+          {/* ── Get Connected dropdown ── */}
+          {dd("connect", "Get Connected", ["get-connected","apply-a","apply-b"].includes(view), <>
+            <p className="nav-dd__section">Who Are You?</p>
+            <button className="nav-dd__item" onClick={() => go("get-connected")}>🏦 Banks &amp; Fintechs</button>
+            <button className="nav-dd__item" onClick={() => go("get-connected")}>🤝 Agent Network</button>
+            <button className="nav-dd__item" onClick={() => go("get-connected")}>⚙️ Developers</button>
+            <div className="nav-dd__divider" />
+            <button className="nav-dd__item" onClick={() => go("apply-a")}>📋 Apply for API Access →</button>
+          </>)}
+
+          {/* ── Contact dropdown ── */}
+          {dd("contact", "Contact", view === "contact", <>
+            <p className="nav-dd__section">Reach Us</p>
+            <button className="nav-dd__item" onClick={() => go("contact")}>📧 General Enquiries</button>
+            <button className="nav-dd__item" onClick={() => go("contact")}>🛠️ Technical / API Support</button>
+            <button className="nav-dd__item" onClick={() => go("contact")}>🤝 Partnerships</button>
+            <button className="nav-dd__item" onClick={() => go("contact")}>📍 Head Office</button>
+          </>)}
+
+          {/* ── Our Partners dropdown ── */}
+          {dd("partners", "🤝 Our Partners", false, <>
+            <p className="nav-dd__section">Partnered Banks &amp; Institutions</p>
+            <div className="nav-dd__grid">
+              {PARTNERS.map(p => (
+                <span key={p.name} className="nav-dd__item nav-dd__item--static">
+                  {p.emoji} {p.name}
+                </span>
+              ))}
+            </div>
+          </>, true)}
+
+          {/* ── Core services dropdown ── */}
+          {dd("core", "⚡ Core", CORE_VIEWS.includes(view), <>
+            <p className="nav-dd__section">Live Services</p>
+            <button className="nav-dd__item" onClick={() => go("zfoe")}>🏦 ZFOE — Open Account</button>
+            <button className="nav-dd__item" onClick={() => go("bih")}>🧬 BIH — Biometric Identity Harvest</button>
+            <button className="nav-dd__item" onClick={() => go("bls")}>💧 BLS — Liquidity Sweep</button>
+            <button className="nav-dd__item" onClick={() => go("blide")}>🫦 BLIDE — Face Pay</button>
+            <button className="nav-dd__item" onClick={() => go("zfps")}>📡 ZFPS — Provisioning Status</button>
+            <div className="nav-dd__divider" />
+            <button className="nav-dd__item" onClick={() => go("core")}>📋 All Core Services</button>
+          </>)}
+
+          {/* ── Back to Dashboard ── */}
           {view !== "landing" && (
             <>
               <span style={{ width: 1, background: "var(--border)", alignSelf: "stretch", margin: "0 0.25rem" }} />
-              <button
-                className="btn btn--outline btn--sm"
-                onClick={back}
-                style={{ fontSize: "0.78rem" }}
-              >
+              <button className="btn btn--outline btn--sm" onClick={back} style={{ fontSize: "0.78rem" }}>
                 ← Dashboard
               </button>
             </>
