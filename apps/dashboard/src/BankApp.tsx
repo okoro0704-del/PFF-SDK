@@ -3,6 +3,8 @@ import {
   BankLandingPage, WhoWeArePage, WhatWeDoPage,
   GetConnectedPage, ContactPage, CorePage,
 } from "./pages/BankLandingPage";
+import { SdkLaunchPage }      from "./pages/SdkLaunchPage";
+import { BiometricSDKProvider } from "./sdk/BiometricSDK";
 import { ZfoeOnboarding }   from "./pages/ZfoeOnboarding";
 import { BihGateway }       from "./pages/BihGateway";
 import { BlsWithdrawal }    from "./pages/BlsWithdrawal";
@@ -15,9 +17,10 @@ import { OnboardingStageB } from "./pages/OnboardingStageB";
 type BankView =
   | "landing" | "who-we-are" | "what-we-do" | "get-connected" | "contact" | "core"
   | "apply-a" | "apply-b"
-  | "zfoe" | "bih" | "bls" | "blide" | "zfps";
+  | "zfoe" | "bih" | "bls" | "blide" | "zfps"
+  | "sdk";
 
-const CORE_VIEWS: BankView[] = ["core", "zfoe", "bih", "bls", "blide", "zfps"];
+const CORE_VIEWS: BankView[] = ["core", "zfoe", "bih", "bls", "blide", "zfps", "sdk"];
 
 const PARTNERS = [
   { name: "Access Bank",          emoji: "🏦" },
@@ -71,6 +74,7 @@ export function BankApp() {
   );
 
   return (
+    <BiometricSDKProvider>
     <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
       {/* ── Navbar ────────────────────────────────────────────────────────── */}
       <nav className="navbar" ref={navRef}>
@@ -144,6 +148,8 @@ export function BankApp() {
             <button className="nav-dd__item" onClick={() => go("blide")}>🫦 BLIDE — Face Pay</button>
             <button className="nav-dd__item" onClick={() => go("zfps")}>📡 ZFPS — Provisioning Status</button>
             <div className="nav-dd__divider" />
+            <button className="nav-dd__item" onClick={() => go("sdk")}>🔬 Biometric SDK — BAS · YES · AJO</button>
+            <div className="nav-dd__divider" />
             <button className="nav-dd__item" onClick={() => go("core")}>📋 All Core Services</button>
           </>)}
 
@@ -190,6 +196,7 @@ export function BankApp() {
       {view === "bls"   && <BlsWithdrawal  onBack={() => setView("core")} />}
       {view === "blide" && <BlideGateway   onBack={() => setView("core")} />}
       {view === "zfps"  && <ZfpsMonitor    onBack={() => setView("core")} />}
+      {view === "sdk"   && <SdkLaunchPage  onBack={() => setView("core")} />}
 
       {/* ── spacer so footer is always at the bottom ──────────────────────── */}
       <div style={{ flex: 1 }} />
@@ -218,6 +225,7 @@ export function BankApp() {
         </p>
       </footer>
     </div>
+    </BiometricSDKProvider>
   );
 }
 
