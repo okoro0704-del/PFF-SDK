@@ -1,0 +1,115 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   PFF-TRUST · KYA Module — Know Your Agent · Force-Injected Sovereign UI
+   F-Man Life OS Middleware · Chain of Trust · © F-Man Technologies Ltd.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Overlay & Panel ─────────────────────────────────────────────────────── */
+.kya-overlay { position:fixed; inset:0; z-index:9950; background:rgba(0,0,0,0.97); display:flex; align-items:center; justify-content:center; animation:kyaFade 0.25s ease; }
+@keyframes kyaFade { from{opacity:0} to{opacity:1} }
+
+.kya-panel {
+  background:#0c0c10; border:1px solid rgba(201,168,76,0.32); border-radius:16px;
+  padding:2.2rem 2rem 2rem; max-width:620px; width:95%; max-height:92vh; overflow-y:auto;
+  position:relative; box-shadow:0 0 100px rgba(201,168,76,0.06), inset 0 1px 0 rgba(201,168,76,0.07);
+  animation:kyaSlide 0.3s cubic-bezier(0.16,1,0.3,1);
+}
+@keyframes kyaSlide { from{transform:translateY(24px);opacity:0} to{transform:translateY(0);opacity:1} }
+.kya-panel::-webkit-scrollbar { width:4px }
+.kya-panel::-webkit-scrollbar-thumb { background:rgba(201,168,76,0.3); border-radius:4px }
+
+/* ── KYA Force-Inject Strip ──────────────────────────────────────────────── */
+.kya-strip { position:absolute; top:0; left:0; right:0; border-radius:16px 16px 0 0; background:linear-gradient(90deg,rgba(201,168,76,0.1),rgba(201,168,76,0.26),rgba(201,168,76,0.1)); padding:0.28rem; text-align:center; font-size:0.57rem; letter-spacing:0.18em; text-transform:uppercase; color:rgba(201,168,76,0.75); }
+
+/* ── Header ──────────────────────────────────────────────────────────────── */
+.kya-header { display:flex; align-items:flex-start; gap:1rem; margin-bottom:1.5rem; padding:1.4rem 0 1rem; border-bottom:1px solid rgba(201,168,76,0.1); }
+.kya-badge  { display:inline-block; background:linear-gradient(135deg,#c9a84c,#f0d070); color:#000; font-size:0.57rem; font-weight:800; letter-spacing:0.13em; padding:0.2rem 0.55rem; border-radius:4px; text-transform:uppercase; white-space:nowrap; }
+.kya-title  { font-size:1.05rem; font-weight:700; color:#fff; margin-top:0.35rem; }
+.kya-subtitle { font-size:0.68rem; color:rgba(201,168,76,0.6); margin-top:0.12rem; letter-spacing:0.07em; text-transform:uppercase; }
+
+/* ── Step bar ────────────────────────────────────────────────────────────── */
+.kya-steps { display:flex; gap:0.4rem; margin-bottom:1.5rem; }
+.kya-step  { flex:1; height:3px; border-radius:3px; background:rgba(255,255,255,0.06); transition:background 0.4s; }
+.kya-step--done   { background:#c9a84c; }
+.kya-step--active { background:rgba(201,168,76,0.45); animation:kyaStepPulse 1.6s ease-in-out infinite; }
+@keyframes kyaStepPulse { 0%,100%{opacity:0.45} 50%{opacity:1} }
+
+/* ── Master Agent card ───────────────────────────────────────────────────── */
+.kya-master-card { background:linear-gradient(135deg,rgba(201,168,76,0.07),rgba(201,168,76,0.02)); border:1px solid rgba(201,168,76,0.22); border-radius:14px; padding:1.25rem 1.4rem; display:flex; align-items:center; gap:1.2rem; margin-bottom:1.5rem; }
+.kya-master-avatar { width:52px; height:52px; border-radius:50%; background:linear-gradient(135deg,#c9a84c,#7a5f20); display:flex; align-items:center; justify-content:center; font-size:1.5rem; flex-shrink:0; border:2px solid rgba(201,168,76,0.4); }
+.kya-master-name  { font-size:1rem; font-weight:700; color:#fff; margin-bottom:0.18rem; }
+.kya-master-id    { font-size:0.67rem; color:rgba(201,168,76,0.65); font-family:monospace; margin-bottom:0.18rem; }
+.kya-master-tier  { display:inline-block; background:rgba(201,168,76,0.12); border:1px solid rgba(201,168,76,0.3); border-radius:20px; padding:0.18rem 0.65rem; font-size:0.6rem; font-weight:800; color:#c9a84c; letter-spacing:0.12em; text-transform:uppercase; }
+
+/* ── Sub-Agent cards ─────────────────────────────────────────────────────── */
+.kya-sub-card { background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.07); border-radius:12px; padding:1rem 1.2rem; display:flex; align-items:center; gap:1rem; margin-bottom:0.65rem; transition:border-color 0.2s; }
+.kya-sub-card:hover { border-color:rgba(201,168,76,0.2); }
+.kya-sub-avatar { width:38px; height:38px; border-radius:50%; background:rgba(201,168,76,0.08); border:1px solid rgba(201,168,76,0.18); display:flex; align-items:center; justify-content:center; font-size:1.1rem; flex-shrink:0; }
+.kya-sub-name   { font-size:0.85rem; font-weight:600; color:#fff; margin-bottom:0.1rem; }
+.kya-sub-ssid   { font-size:0.64rem; color:rgba(201,168,76,0.6); font-family:monospace; }
+.kya-sub-meta   { font-size:0.67rem; color:rgba(255,255,255,0.32); margin-top:0.1rem; }
+.kya-sub-actions { margin-left:auto; display:flex; flex-direction:column; align-items:flex-end; gap:0.35rem; }
+
+/* ── Status badges ───────────────────────────────────────────────────────── */
+.kya-status             { display:inline-flex; align-items:center; gap:0.28rem; font-size:0.6rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; padding:0.18rem 0.5rem; border-radius:20px; white-space:nowrap; }
+.kya-status--active      { background:rgba(34,197,94,0.1);  color:#22c55e; border:1px solid rgba(34,197,94,0.25); }
+.kya-status--pending-bio { background:rgba(201,168,76,0.1); color:#c9a84c; border:1px solid rgba(201,168,76,0.25); }
+.kya-status--suspended   { background:rgba(239,68,68,0.1);  color:#ef4444; border:1px solid rgba(239,68,68,0.25); }
+.kya-status--blacklisted { background:rgba(100,0,0,0.35);   color:#ff6b6b; border:1px solid rgba(239,68,68,0.4); }
+.kya-bio-dot { width:7px; height:7px; border-radius:50%; display:inline-block; margin-right:0.25rem; }
+.kya-bio-dot--on  { background:#22c55e; box-shadow:0 0 6px rgba(34,197,94,0.5); }
+.kya-bio-dot--off { background:rgba(255,255,255,0.2); }
+
+/* ── Bond Certificate ────────────────────────────────────────────────────── */
+.kya-bond       { background:linear-gradient(135deg,rgba(201,168,76,0.06),transparent); border:1px solid rgba(201,168,76,0.28); border-radius:14px; padding:1.5rem; margin:1rem 0; text-align:center; }
+.kya-bond__seal { font-size:2.8rem; margin-bottom:0.6rem; }
+.kya-bond__ssid { font-size:1.5rem; font-weight:800; color:#c9a84c; font-family:monospace; letter-spacing:0.12em; margin-bottom:0.25rem; }
+.kya-bond__name { font-size:0.82rem; color:rgba(255,255,255,0.55); }
+.kya-bond__date { font-size:0.65rem; color:rgba(255,255,255,0.28); margin-top:0.4rem; font-family:monospace; }
+
+/* ── Chain-of-Trust visual ───────────────────────────────────────────────── */
+.kya-chain       { display:flex; flex-direction:column; align-items:center; gap:0; margin:1rem 0; }
+.kya-chain__node { display:flex; align-items:center; gap:0.6rem; background:rgba(201,168,76,0.05); border:1px solid rgba(201,168,76,0.18); border-radius:8px; padding:0.5rem 1rem; font-size:0.78rem; color:#fff; width:100%; max-width:280px; justify-content:center; }
+.kya-chain__line { width:2px; height:18px; background:linear-gradient(to bottom,rgba(201,168,76,0.4),rgba(201,168,76,0.15)); }
+
+/* ── Disclaimer ──────────────────────────────────────────────────────────── */
+.kya-disclaimer        { background:rgba(239,68,68,0.06); border:1px solid rgba(239,68,68,0.24); border-radius:10px; padding:1.1rem 1.2rem; margin:1rem 0; }
+.kya-disclaimer__title { font-size:0.7rem; font-weight:800; color:#ef4444; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:0.45rem; display:flex; align-items:center; gap:0.35rem; }
+.kya-disclaimer__body  { font-size:0.76rem; color:rgba(255,255,255,0.48); line-height:1.72; }
+.kya-disclaimer__body strong { color:rgba(239,68,68,0.85); }
+
+/* ── Blacklist check ─────────────────────────────────────────────────────── */
+.kya-check-wrap  { display:flex; flex-direction:column; align-items:center; gap:1.25rem; padding:1.5rem 0; }
+.kya-check-icon  { font-size:3rem; }
+.kya-check-rows  { width:100%; }
+.kya-check-row   { display:flex; align-items:center; gap:0.75rem; padding:0.52rem 0; border-bottom:1px solid rgba(255,255,255,0.04); font-size:0.78rem; color:rgba(255,255,255,0.48); }
+.kya-check-dot   { width:9px; height:9px; border-radius:50%; flex-shrink:0; }
+.kya-check-dot--ok   { background:#22c55e; box-shadow:0 0 6px rgba(34,197,94,0.4); }
+.kya-check-dot--run  { background:#c9a84c; animation:kyaDotPulse 0.75s ease-in-out infinite; }
+.kya-check-dot--wait { background:rgba(255,255,255,0.12); }
+@keyframes kyaDotPulse { 0%,100%{opacity:0.4} 50%{opacity:1} }
+
+/* ── Force-inject settings banner ───────────────────────────────────────────*/
+.kya-inject-banner { background:linear-gradient(90deg,rgba(201,168,76,0.06),rgba(201,168,76,0.12),rgba(201,168,76,0.06)); border-top:1px solid rgba(201,168,76,0.2); border-bottom:1px solid rgba(201,168,76,0.2); padding:0.55rem 1.5rem; display:flex; align-items:center; gap:0.75rem; margin-bottom:1.5rem; }
+.kya-inject-banner__label { font-size:0.62rem; font-weight:800; letter-spacing:0.16em; text-transform:uppercase; color:rgba(201,168,76,0.8); }
+
+/* ── Info, form, buttons, result (compact reuse of SDK patterns) ─────────── */
+.kya-info { background:rgba(201,168,76,0.04); border:1px solid rgba(201,168,76,0.13); border-radius:10px; padding:0.85rem 1.1rem; margin:0.75rem 0; }
+.kya-info p { font-size:0.78rem; color:rgba(255,255,255,0.48); margin:0.25rem 0; line-height:1.6; }
+.kya-info p strong { color:#c9a84c; }
+.kya-field  { margin-bottom:1rem; }
+.kya-label  { display:block; font-size:0.67rem; color:rgba(201,168,76,0.8); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:0.4rem; }
+.kya-input  { width:100%; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:0.72rem 0.9rem; color:#fff; font-size:0.87rem; outline:none; transition:border-color 0.2s; box-sizing:border-box; font-family:inherit; }
+.kya-input:focus { border-color:rgba(201,168,76,0.5); }
+.kya-divider { height:1px; background:rgba(255,255,255,0.05); margin:1rem 0; }
+.kya-btn { display:flex; align-items:center; justify-content:center; gap:0.4rem; width:100%; margin-top:0.5rem; padding:0.8rem 1.5rem; border-radius:9px; font-size:0.85rem; font-weight:600; cursor:pointer; border:none; transition:all 0.2s; font-family:inherit; }
+.kya-btn--primary { background:linear-gradient(135deg,#c9a84c,#f0d070); color:#000; }
+.kya-btn--primary:hover:not(:disabled) { transform:translateY(-1px); box-shadow:0 8px 24px rgba(201,168,76,0.28); }
+.kya-btn--danger  { background:rgba(239,68,68,0.1); border:1px solid rgba(239,68,68,0.3); color:#ef4444; }
+.kya-btn--ghost   { background:transparent; border:1px solid rgba(255,255,255,0.09); color:rgba(255,255,255,0.4); font-size:0.78rem; padding:0.58rem 1rem; }
+.kya-btn:disabled { opacity:0.35; cursor:not-allowed; }
+.kya-result { text-align:center; padding:1rem 0; }
+.kya-result__icon  { font-size:3rem; margin-bottom:0.75rem; }
+.kya-result__title { font-size:1.05rem; font-weight:700; color:#fff; margin-bottom:0.4rem; }
+.kya-result__body  { font-size:0.78rem; color:rgba(255,255,255,0.45); line-height:1.7; }
+.kya-result__token { display:block; background:rgba(201,168,76,0.07); border:1px solid rgba(201,168,76,0.18); border-radius:7px; padding:0.55rem 0.9rem; font-family:monospace; font-size:0.67rem; color:#c9a84c; margin-top:0.8rem; word-break:break-all; text-align:left; }
+

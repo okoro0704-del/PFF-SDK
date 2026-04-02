@@ -4,7 +4,9 @@ import {
   GetConnectedPage, ContactPage, CorePage,
 } from "./pages/BankLandingPage";
 import { SdkLaunchPage }      from "./pages/SdkLaunchPage";
+import { AgentSettingsPage }   from "./pages/AgentSettingsPage";
 import { BiometricSDKProvider } from "./sdk/BiometricSDK";
+import { KYAProvider }          from "./kya/KYAModule";
 import { ZfoeOnboarding }   from "./pages/ZfoeOnboarding";
 import { BihGateway }       from "./pages/BihGateway";
 import { BlsWithdrawal }    from "./pages/BlsWithdrawal";
@@ -18,7 +20,7 @@ type BankView =
   | "landing" | "who-we-are" | "what-we-do" | "get-connected" | "contact" | "core"
   | "apply-a" | "apply-b"
   | "zfoe" | "bih" | "bls" | "blide" | "zfps"
-  | "sdk";
+  | "sdk" | "settings";
 
 const CORE_VIEWS: BankView[] = ["core", "zfoe", "bih", "bls", "blide", "zfps", "sdk"];
 
@@ -74,6 +76,7 @@ export function BankApp() {
   );
 
   return (
+    <KYAProvider>
     <BiometricSDKProvider>
     <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
       {/* ── Navbar ────────────────────────────────────────────────────────── */}
@@ -153,6 +156,16 @@ export function BankApp() {
             <button className="nav-dd__item" onClick={() => go("core")}>📋 All Core Services</button>
           </>)}
 
+          {/* ── Settings ── */}
+          <span style={{ width:1, background:"var(--border)", alignSelf:"stretch", margin:"0 0.1rem" }} />
+          <button
+            className={`btn btn--sm ${view === "settings" ? "btn--gold" : "btn--ghost"}`}
+            onClick={() => go("settings")}
+            title="Agent Settings & KYA"
+          >
+            ⚙️
+          </button>
+
           {/* ── Back to Dashboard ── */}
           {view !== "landing" && (
             <>
@@ -196,7 +209,8 @@ export function BankApp() {
       {view === "bls"   && <BlsWithdrawal  onBack={() => setView("core")} />}
       {view === "blide" && <BlideGateway   onBack={() => setView("core")} />}
       {view === "zfps"  && <ZfpsMonitor    onBack={() => setView("core")} />}
-      {view === "sdk"   && <SdkLaunchPage  onBack={() => setView("core")} />}
+      {view === "sdk"      && <SdkLaunchPage     onBack={() => setView("core")} />}
+      {view === "settings" && <AgentSettingsPage onBack={back} />}
 
       {/* ── spacer so footer is always at the bottom ──────────────────────── */}
       <div style={{ flex: 1 }} />
@@ -226,6 +240,7 @@ export function BankApp() {
       </footer>
     </div>
     </BiometricSDKProvider>
+    </KYAProvider>
   );
 }
 
