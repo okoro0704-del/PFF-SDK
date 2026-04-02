@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import {
   BankLandingPage, WhoWeArePage, WhatWeDoPage,
   GetConnectedPage, ContactPage, CorePage,
@@ -21,7 +20,6 @@ type BankView =
 const CORE_VIEWS: BankView[] = ["core", "zfoe", "bih", "bls", "blide", "zfps"];
 
 export function BankApp() {
-  const navigate  = useNavigate();
   const [view, setView]           = useState<BankView>("landing");
   const [stageAData, setStageAData] = useState<StageAData | null>(null);
 
@@ -49,9 +47,19 @@ export function BankApp() {
           {/* ── Core services tab ── */}
           <button className={`btn btn--sm ${CORE_VIEWS.includes(view) ? "btn--gold" : "btn--outline"}`} onClick={() => setView("core")}>⚡ Core</button>
 
-          {/* ── Divider + Admin ── */}
-          <span style={{ width: 1, background: "var(--border)", alignSelf: "stretch", margin: "0 0.25rem" }} />
-          <button className="btn btn--ghost btn--sm" onClick={() => navigate("/admin")} style={{ fontSize: "0.7rem", opacity: 0.55 }}>Admin →</button>
+          {/* ── Back to Dashboard — visible on every tab except the landing page ── */}
+          {view !== "landing" && (
+            <>
+              <span style={{ width: 1, background: "var(--border)", alignSelf: "stretch", margin: "0 0.25rem" }} />
+              <button
+                className="btn btn--outline btn--sm"
+                onClick={back}
+                style={{ fontSize: "0.78rem" }}
+              >
+                ← Dashboard
+              </button>
+            </>
+          )}
         </div>
       </nav>
 
