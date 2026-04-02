@@ -20,14 +20,14 @@ export function BankApp() {
   const back = () => setView("landing");
 
   return (
-    <div>
-      {/* ── Bank Navbar ───────────────────────────────────────────────────── */}
+    <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
+      {/* ── Navbar ────────────────────────────────────────────────────────── */}
       <nav className="navbar">
         <div className="navbar__brand" onClick={back} style={{ cursor: "pointer" }}>
           <span className="navbar__logo">PFF</span>
           <div>
-            <div className="navbar__title">PFF-TRUST</div>
-            <div className="navbar__sub">Bank &amp; Agent Portal</div>
+            <div className="navbar__title">PFF-TRUST SYSTEM</div>
+            <div className="navbar__sub">Bank &amp; Fintech Portal</div>
           </div>
         </div>
 
@@ -79,6 +79,33 @@ export function BankApp() {
       {view === "bls"   && <BlsWithdrawal  onBack={back} />}
       {view === "blide" && <BlideGateway   onBack={back} />}
       {view === "zfps"  && <ZfpsMonitor    onBack={back} />}
+
+      {/* ── spacer so footer is always at the bottom ──────────────────────── */}
+      <div style={{ flex: 1 }} />
+
+      {/* ── Footer ────────────────────────────────────────────────────────── */}
+      <footer style={{
+        borderTop: "1px solid var(--gold-border)",
+        background: "var(--bg-surface)",
+        padding: "2.5rem 2rem",
+        textAlign: "center",
+      }}>
+        <p style={{
+          fontFamily: "'Cormorant Garamond', Georgia, serif",
+          fontSize: "1.05rem",
+          fontWeight: 600,
+          color: "var(--gold-bright)",
+          letterSpacing: "0.18em",
+          textTransform: "uppercase",
+          marginBottom: "0.5rem",
+        }}>
+          A Product of F-MAN TECHNOLOGIES
+        </p>
+        <p style={{ fontSize: "0.75rem", color: "var(--text-dim)", letterSpacing: "0.06em" }}>
+          © {new Date().getFullYear()} F-Man Technologies Ltd. · PFF-TRUST is sovereign biometric infrastructure for Nigeria.
+          · All rights reserved.
+        </p>
+      </footer>
     </div>
   );
 }
