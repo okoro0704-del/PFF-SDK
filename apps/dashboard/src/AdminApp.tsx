@@ -19,14 +19,20 @@ export function AdminApp() {
   const back = () => setView("landing");
 
   return (
-    <div>
+    <div style={{ minHeight: "100vh", background: "#060608", color: "#F0EBE0" }}>
       {/* ── Admin Navbar ──────────────────────────────────────────────────── */}
       <nav className="navbar" style={{ borderBottom: "1px solid rgba(201,168,76,0.35)" }}>
         <div className="navbar__brand" onClick={back} style={{ cursor: "pointer" }}>
-          <span className="navbar__logo" style={{ background: "var(--gold-bright)", color: "#0a0a0a" }}>ADM</span>
+          <span style={{
+            fontFamily: "'Cormorant Garamond', Georgia, serif",
+            fontSize: "1.3rem", fontWeight: 700,
+            color: "#0a0a0a", background: "#E8C96D",
+            padding: "0.1rem 0.5rem", borderRadius: "4px",
+            letterSpacing: "0.05em",
+          }}>ADM</span>
           <div>
-            <div className="navbar__title">PFF-TRUST Admin</div>
-            <div className="navbar__sub" style={{ color: "var(--gold-bright)" }}>Internal Control Plane</div>
+            <div style={{ fontSize: "1rem", fontWeight: 600, color: "#E8C96D" }}>PFF-TRUST Admin</div>
+            <div style={{ fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#E8C96D", opacity: 0.7 }}>Internal Control Plane</div>
           </div>
         </div>
 

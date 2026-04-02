@@ -6,12 +6,12 @@ export function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* ── Bank-facing portal — main URL (/) ── */}
-        <Route path="/*"     element={<BankApp />} />
-
-        {/* ── Admin portal — /admin ── */}
+        {/* ── Admin portal — listed FIRST so the wildcard below never shadows it ── */}
         <Route path="/admin"  element={<AdminApp />} />
-        <Route path="/admin/" element={<Navigate to="/admin" replace />} />
+        <Route path="/admin/*" element={<Navigate to="/admin" replace />} />
+
+        {/* ── Bank / Agent portal — catches everything else ── */}
+        <Route path="/*" element={<BankApp />} />
       </Routes>
     </BrowserRouter>
   );

@@ -233,8 +233,9 @@ tr:hover td { background: rgba(255,255,255,0.02); }
 }
 .navbar__brand { display: flex; align-items: center; gap: 0.75rem; }
 .navbar__logo  { font-family: "Cormorant Garamond", serif; font-size: 1.3rem; font-weight: 700; color: var(--gold-bright); letter-spacing: 0.05em; }
+.navbar__title { font-size: 1rem; font-weight: 600; color: var(--text); letter-spacing: 0.02em; }
 .navbar__sub   { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-dim); }
-.navbar__links { display: flex; gap: 0.5rem; align-items: center; }
+.navbar__links { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
 
 /* ── Notification Banner ─────────────────────────────────────────────────────── */
 .notice {

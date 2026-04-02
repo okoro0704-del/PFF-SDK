@@ -5,6 +5,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 5173,
+    historyApiFallback: true,   // serve index.html for /admin etc. in dev
     proxy: {
       "/api": {
         target: "http://localhost:3000",
