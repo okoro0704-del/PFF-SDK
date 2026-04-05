@@ -3,6 +3,7 @@ interface AdminLandingPageProps {
   onRscc:        () => void;
   onMonitor:     () => void;
   onInstitution: () => void;
+  onKingmaker:   () => void;
 }
 
 const TOOLS = [
@@ -38,10 +39,18 @@ const TOOLS = [
     badge: "OVERVIEW",
     gold: false,
   },
+  {
+    icon: "♛",
+    title: "Kingmaker — Sovereign Vault",
+    desc: "Liquidity Migration Rate dashboard — approve sovereign partner banks, monitor Day-31 vault flips, LMR TVL, legacy-to-sovereign capital routing, and the full audit trail.",
+    action: "onKingmaker" as const,
+    badge: "SOVEREIGN VAULT",
+    gold: true,
+  },
 ] as const;
 
-export function AdminLandingPage({ onCasd, onRscc, onMonitor, onInstitution }: AdminLandingPageProps) {
-  const handlers = { onCasd, onRscc, onMonitor, onInstitution };
+export function AdminLandingPage({ onCasd, onRscc, onMonitor, onInstitution, onKingmaker }: AdminLandingPageProps) {
+  const handlers = { onCasd, onRscc, onMonitor, onInstitution, onKingmaker };
 
   return (
     <div>

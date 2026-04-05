@@ -5,11 +5,12 @@ import { CommandCenter }          from "./pages/CommandCenter";
 import { RsccDashboard }          from "./pages/RsccDashboard";
 import { LegacyMonitor }          from "./pages/LegacyMonitor";
 import { InstitutionalDashboard } from "./pages/InstitutionalDashboard";
+import { KingmakerDashboard }     from "./pages/KingmakerDashboard";
 import { OnboardingStageA }       from "./pages/OnboardingStageA";
 import type { StageAData }        from "./pages/OnboardingStageA";
 import { OnboardingStageB }       from "./pages/OnboardingStageB";
 
-type AdminView = "landing" | "casd" | "rscc" | "monitor" | "institution" | "onboard-a" | "onboard-b";
+type AdminView = "landing" | "casd" | "rscc" | "monitor" | "institution" | "kingmaker" | "onboard-a" | "onboard-b";
 
 export function AdminApp() {
   const navigate = useNavigate();
@@ -41,6 +42,7 @@ export function AdminApp() {
           <button className="btn btn--ghost btn--sm" onClick={() => setView("rscc")}>💰 RSCC</button>
           <button className="btn btn--ghost btn--sm" onClick={() => setView("monitor")}>📡 Monitor</button>
           <button className="btn btn--ghost btn--sm" onClick={() => setView("institution")}>🏛️ Institutional</button>
+          <button className="btn btn--ghost btn--sm" onClick={() => setView("kingmaker")}>♛ Kingmaker</button>
           <button
             className="btn btn--outline btn--sm"
             onClick={() => navigate("/")}
@@ -67,6 +69,7 @@ export function AdminApp() {
           onRscc={() => setView("rscc")}
           onMonitor={() => setView("monitor")}
           onInstitution={() => setView("onboard-a")}
+          onKingmaker={() => setView("kingmaker")}
         />
       )}
       {view === "casd"    && <CommandCenter onBack={back} />}
@@ -89,6 +92,7 @@ export function AdminApp() {
       {view === "institution" && stageAData && (
         <InstitutionalDashboard institution={stageAData} />
       )}
+      {view === "kingmaker" && <KingmakerDashboard onBack={back} />}
     </div>
   );
 }

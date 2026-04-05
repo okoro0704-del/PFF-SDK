@@ -21,6 +21,7 @@ import { RsccModule } from "./rscc/rscc.module";
 import { RedisModule } from "./redis/redis.module";
 import { ZfpsModule } from "./zfps/zfps.module";
 import { SupabaseModule } from "./supabase/supabase.module";
+import { KingmakerModule } from "./kingmaker/kingmaker.module";
 import { HealthController } from "./health.controller";
 
 @Module({
@@ -47,6 +48,7 @@ import { HealthController } from "./health.controller";
     RedisModule,
     ZfpsModule,
     SupabaseModule,
+    KingmakerModule,
   ],
   controllers: [HealthController],
 })

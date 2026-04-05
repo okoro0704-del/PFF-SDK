@@ -14,11 +14,12 @@ import { BlideGateway }     from "./pages/BlideGateway";
 import { ZfpsMonitor }      from "./pages/ZfpsMonitor";
 import { OnboardingStageA } from "./pages/OnboardingStageA";
 import type { StageAData }  from "./pages/OnboardingStageA";
-import { OnboardingStageB } from "./pages/OnboardingStageB";
+import { OnboardingStageB }    from "./pages/OnboardingStageB";
+import { JoinTheTablePage }    from "./pages/JoinTheTablePage";
 
 type BankView =
   | "landing" | "who-we-are" | "what-we-do" | "get-connected" | "contact" | "core"
-  | "apply-a" | "apply-b"
+  | "apply-a" | "apply-b" | "join-table"
   | "zfoe" | "bih" | "bls" | "blide" | "zfps"
   | "sdk" | "settings";
 
@@ -112,13 +113,14 @@ export function BankApp() {
           </>)}
 
           {/* ── Get Connected dropdown ── */}
-          {dd("connect", "Get Connected", ["get-connected","apply-a","apply-b"].includes(view), <>
+          {dd("connect", "Get Connected", ["get-connected","apply-a","apply-b","join-table"].includes(view), <>
             <p className="nav-dd__section">Who Are You?</p>
             <button className="nav-dd__item" onClick={() => go("get-connected")}>🏦 Banks &amp; Fintechs</button>
             <button className="nav-dd__item" onClick={() => go("get-connected")}>🤝 Agent Network</button>
             <button className="nav-dd__item" onClick={() => go("get-connected")}>⚙️ Developers</button>
             <div className="nav-dd__divider" />
             <button className="nav-dd__item" onClick={() => go("apply-a")}>📋 Apply for API Access →</button>
+            <button className="nav-dd__item" onClick={() => go("join-table")} style={{ color: "var(--gold-bright)", fontWeight: 600 }}>♛ Join the Table — Sovereign Partner →</button>
           </>)}
 
           {/* ── Contact dropdown ── */}
@@ -209,8 +211,9 @@ export function BankApp() {
       {view === "bls"   && <BlsWithdrawal  onBack={() => setView("core")} />}
       {view === "blide" && <BlideGateway   onBack={() => setView("core")} />}
       {view === "zfps"  && <ZfpsMonitor    onBack={() => setView("core")} />}
-      {view === "sdk"      && <SdkLaunchPage     onBack={() => setView("core")} />}
-      {view === "settings" && <AgentSettingsPage onBack={back} />}
+      {view === "sdk"        && <SdkLaunchPage     onBack={() => setView("core")} />}
+      {view === "settings"   && <AgentSettingsPage onBack={back} />}
+      {view === "join-table" && <JoinTheTablePage  onBack={() => go("get-connected")} />}
 
       {/* ── spacer so footer is always at the bottom ──────────────────────── */}
       <div style={{ flex: 1 }} />
