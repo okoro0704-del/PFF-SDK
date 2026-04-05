@@ -34,7 +34,7 @@ const PARTNERS = [
   { name: "Jaiz Bank",            emoji: "🕌" },
 ];
 
-export function BankApp() {
+function BankAppInner() {
   const [view, setView]             = useState<BankView>("landing");
   const [stageAData, setStageAData] = useState<StageAData | null>(null);
   const [openDD, setOpenDD]         = useState<string | null>(null);
@@ -243,12 +243,12 @@ function SDKKingmakerBtn() {
   );
 }
 
-// ── Exported default: BankApp wrapped with UnifiedSDKProvider ─────────────────
-const BankAppCore = BankApp;
-export default function BankAppWithSDK() {
+// ── BankApp — the single export: always wrapped in UnifiedSDKProvider ─────────
+// App.tsx imports { BankApp } so this named export must include the provider.
+export function BankApp() {
   return (
     <UnifiedSDKProvider>
-      <BankAppCore />
+      <BankAppInner />
     </UnifiedSDKProvider>
   );
 }
