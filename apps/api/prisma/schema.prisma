@@ -1556,3 +1556,47 @@ model KingmakerAuditLog {
   @@index([vaultRef])
   @@index([orgId, createdAt])
 }
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// VERIFIED BUSINESS PROFILE — Unified SDK Gate
+// Only businesses with status = VERIFIED may use any SDK function.
+// Checked on every PFFTrust.launch() call before the modal opens.
+// ═══════════════════════════════════════════════════════════════════════════════
+model VerifiedBusinessProfile {
+  id                    String    @id @default(cuid())
+
+  /// Host application identifier (e.g. "bank-portal", "pos-app", custom UUID)
+  hostAppId             String    @unique @map("host_app_id")
+
+  businessName          String    @map("business_name")
+  cacNumber             String    @map("cac_number")
+  cbnLicenceRef         String?   @map("cbn_licence_ref")
+
+  /// Name of the director whose biometric was captured
+  directorName          String    @map("director_name")
+  directorBvn           String    @map("director_bvn")
+
+  /// Whether the director biometric scan was completed
+  biometricCaptured     Boolean   @default(false) @map("biometric_captured")
+
+  /// PENDING → verified by admin or auto-verify in test mode
+  /// VERIFIED → SDK functions are fully unlocked
+  /// SUSPENDED → admin suspended — all SDK functions blocked
+  status                String    @default("PENDING") @map("status")
+
+  /// One-time session token issued on verification (SHA-256 of random bytes)
+  sessionTokenHash      String?   @map("session_token_hash")
+
+  adminNote             String?   @map("admin_note")
+  verifiedAt            DateTime? @map("verified_at")
+  suspendedAt           DateTime? @map("suspended_at")
+
+  orgId                 String    @default("default") @map("org_id")
+  createdAt             DateTime  @default(now()) @map("created_at")
+  updatedAt             DateTime  @updatedAt @map("updated_at")
+
+  @@map("verified_business_profile")
+  @@index([status])
+  @@index([orgId, status])
+  @@index([cacNumber])
+}

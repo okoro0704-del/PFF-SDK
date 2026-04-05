@@ -1,0 +1,289 @@
+/* ─── PFF-TRUST · Sovereign SDK — Force-Inject Styles ─────────────────────────
+   All classes are namespaced with .pff-sdk- to prevent host app conflicts.
+   The overlay sits at z-index 99999 — above everything in any host application.
+   ─────────────────────────────────────────────────────────────────────────── */
+
+/* ── Overlay (force-injected over the entire host app) ── */
+.pff-sdk-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: rgba(0, 0, 0, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  animation: pff-sdk-fadein 0.22s ease;
+}
+
+@keyframes pff-sdk-fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ── Modal Panel ── */
+.pff-sdk-panel {
+  background: linear-gradient(160deg, #0d1a12 0%, #080d08 60%, #0a0d14 100%);
+  border: 1px solid rgba(201, 168, 76, 0.3);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 480px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow:
+    0 0 0 1px rgba(201,168,76,0.08),
+    0 40px 80px rgba(0,0,0,0.7),
+    0 0 60px rgba(201,168,76,0.06) inset;
+  animation: pff-sdk-slidein 0.28s cubic-bezier(0.34,1.56,0.64,1);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(201,168,76,0.3) transparent;
+}
+
+@keyframes pff-sdk-slidein {
+  from { transform: translateY(28px) scale(0.97); opacity: 0; }
+  to   { transform: translateY(0)    scale(1);    opacity: 1; }
+}
+
+/* ── Sovereign Strip (non-dismissible branding bar) ── */
+.pff-sdk-strip {
+  background: linear-gradient(90deg, rgba(201,168,76,0.15) 0%, rgba(201,168,76,0.05) 100%);
+  border-bottom: 1px solid rgba(201,168,76,0.2);
+  padding: 0.55rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 16px 16px 0 0;
+  user-select: none;
+}
+.pff-sdk-strip__brand {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  color: #c9a84c;
+  text-transform: uppercase;
+}
+.pff-sdk-strip__lock {
+  font-size: 0.65rem;
+  color: rgba(201,168,76,0.5);
+  letter-spacing: 0.08em;
+}
+
+/* ── Content Area ── */
+.pff-sdk-content {
+  padding: 1.5rem 1.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* ── Header ── */
+.pff-sdk-header { margin-bottom: 0.25rem; }
+.pff-sdk-badge {
+  display: inline-block;
+  background: rgba(201,168,76,0.12);
+  border: 1px solid rgba(201,168,76,0.3);
+  border-radius: 4px;
+  color: #c9a84c;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  padding: 0.18rem 0.55rem;
+  margin-bottom: 0.55rem;
+  text-transform: uppercase;
+}
+.pff-sdk-title {
+  font-family: 'Cormorant Garamond', 'Georgia', serif;
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.2;
+}
+.pff-sdk-subtitle {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.4);
+  margin-top: 0.2rem;
+  letter-spacing: 0.04em;
+}
+
+/* ── Progress Steps ── */
+.pff-sdk-steps {
+  display: flex;
+  gap: 6px;
+  margin: 0.25rem 0;
+}
+.pff-sdk-step {
+  height: 3px;
+  flex: 1;
+  border-radius: 3px;
+  background: rgba(255,255,255,0.1);
+  transition: background 0.4s;
+}
+.pff-sdk-step--done   { background: #22c55e; }
+.pff-sdk-step--active { background: #c9a84c; }
+
+/* ── Form fields ── */
+.pff-sdk-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: rgba(201,168,76,0.8);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 0.35rem;
+}
+.pff-sdk-input {
+  width: 100%;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(201,168,76,0.2);
+  border-radius: 8px;
+  color: #fff;
+  font-size: 0.9rem;
+  padding: 0.65rem 0.9rem;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+  font-family: inherit;
+}
+.pff-sdk-input:focus { border-color: rgba(201,168,76,0.6); }
+.pff-sdk-input::placeholder { color: rgba(255,255,255,0.2); }
+.pff-sdk-field { display: flex; flex-direction: column; }
+
+/* ── Buttons ── */
+.pff-sdk-btn {
+  border: none;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  padding: 0.78rem 1.25rem;
+  cursor: pointer;
+  transition: all 0.18s;
+  font-family: inherit;
+  letter-spacing: 0.02em;
+  width: 100%;
+}
+.pff-sdk-btn--primary {
+  background: linear-gradient(135deg, #c9a84c, #a8882e);
+  color: #0a0d05;
+}
+.pff-sdk-btn--primary:hover:not(:disabled) { filter: brightness(1.1); transform: translateY(-1px); }
+.pff-sdk-btn--ghost {
+  background: transparent;
+  color: rgba(255,255,255,0.45);
+  border: 1px solid rgba(255,255,255,0.12);
+}
+.pff-sdk-btn--ghost:hover:not(:disabled) { border-color: rgba(255,255,255,0.3); color: rgba(255,255,255,0.7); }
+.pff-sdk-btn--danger {
+  background: rgba(239,68,68,0.15);
+  color: #ef4444;
+  border: 1px solid rgba(239,68,68,0.3);
+}
+.pff-sdk-btn--danger:hover:not(:disabled) { background: rgba(239,68,68,0.25); }
+.pff-sdk-btn:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+
+/* ── Info box ── */
+.pff-sdk-info {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 1rem 1.1rem;
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.7;
+}
+.pff-sdk-info p { margin: 0.2rem 0; }
+.pff-sdk-info strong { color: rgba(255,255,255,0.9); }
+
+/* ── Scanner ── */
+.pff-sdk-scanner-wrap { display: flex; flex-direction: column; align-items: center; gap: 0.75rem; padding: 0.5rem 0; }
+.pff-sdk-scanner {
+  width: 100px; height: 100px;
+  border-radius: 50%;
+  border: 2px solid rgba(201,168,76,0.4);
+  background: rgba(201,168,76,0.06);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2rem;
+  position: relative;
+  transition: border-color 0.3s;
+}
+.pff-sdk-scanner--scanning { border-color: #c9a84c; }
+.pff-sdk-scanner--success  { border-color: #22c55e; background: rgba(34,197,94,0.1); }
+.pff-sdk-scanner__ring {
+  position: absolute; inset: -8px; border-radius: 50%;
+  border: 2px solid rgba(201,168,76,0.25);
+  animation: pff-sdk-pulse 1.4s ease-out infinite;
+}
+.pff-sdk-scanner__ring:nth-child(2) { animation-delay: 0.7s; }
+@keyframes pff-sdk-pulse {
+  0%   { transform: scale(1);   opacity: 0.8; }
+  100% { transform: scale(1.5); opacity: 0;   }
+}
+.pff-sdk-scan-label { font-size: 0.78rem; color: rgba(255,255,255,0.5); text-align: center; line-height: 1.55; }
+
+/* ── Fingers grid ── */
+.pff-sdk-fingers { display: grid; grid-template-columns: repeat(5,1fr); gap: 6px; }
+.pff-sdk-finger  { display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 1rem; }
+.pff-sdk-finger__dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: rgba(255,255,255,0.12);
+  transition: background 0.25s;
+}
+.pff-sdk-finger__dot--done   { background: #22c55e; }
+.pff-sdk-finger__dot--active { background: #c9a84c; }
+.pff-sdk-finger__label { font-size: 0.52rem; color: rgba(255,255,255,0.3); }
+
+/* ── Penalty / Warning box ── */
+.pff-sdk-penalty {
+  background: rgba(239,68,68,0.08);
+  border: 1px solid rgba(239,68,68,0.3);
+  border-radius: 10px;
+  padding: 1rem 1.1rem;
+  text-align: center;
+}
+.pff-sdk-penalty__icon  { font-size: 1.8rem; margin-bottom: 0.4rem; }
+.pff-sdk-penalty__title { font-weight: 800; color: #ef4444; font-size: 0.95rem; margin-bottom: 0.3rem; letter-spacing: 0.06em; }
+.pff-sdk-penalty__body  { font-size: 0.8rem; color: rgba(239,68,68,0.75); line-height: 1.65; }
+
+/* ── Countdown ── */
+.pff-sdk-countdown { text-align: center; padding: 0.75rem; }
+.pff-sdk-countdown__num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.8rem; font-weight: 800;
+  color: #ef4444; line-height: 1;
+}
+.pff-sdk-countdown__label { font-size: 0.72rem; color: rgba(255,255,255,0.4); margin-top: 0.3rem; }
+
+/* ── Result state ── */
+.pff-sdk-result { text-align: center; padding: 0.5rem 0; }
+.pff-sdk-result__icon  { font-size: 2.4rem; margin-bottom: 0.6rem; }
+.pff-sdk-result__title { font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 0.4rem; }
+.pff-sdk-result__body  { font-size: 0.8rem; color: rgba(255,255,255,0.5); line-height: 1.65; margin-bottom: 0.75rem; }
+.pff-sdk-result__token {
+  display: block;
+  background: rgba(201,168,76,0.08);
+  border: 1px solid rgba(201,168,76,0.2);
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.68rem;
+  color: #c9a84c;
+  word-break: break-all;
+  line-height: 1.5;
+  text-align: left;
+}
+
+/* ── AJO Ring wrapper ── */
+.pff-sdk-ajo-ring { display: flex; justify-content: center; padding: 0.25rem 0; }
+
+/* ── Verified badge ── */
+.pff-sdk-verified-badge {
+  display: flex; align-items: center; gap: 0.6rem;
+  background: rgba(34,197,94,0.1);
+  border: 1px solid rgba(34,197,94,0.3);
+  border-radius: 8px;
+  padding: 0.65rem 1rem;
+  font-size: 0.82rem;
+  color: #22c55e;
+  font-weight: 600;
+}
+
