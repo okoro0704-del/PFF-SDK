@@ -1,0 +1,40 @@
+{
+  "name": "@bsss/fman-sdk",
+  "version": "1.0.0",
+  "description": "F-Man Sovereign SDK — The Biometric Identity & Ajo Settlement Layer. CBN-Compliant · NIBSS-Integrated · BSSS Protocol.",
+  "author": "PFF-TRUST <api@pff-trust.ng>",
+  "license": "SEE LICENSE IN LICENSE",
+  "private": false,
+  "type": "module",
+  "main":   "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types":  "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import":  "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "types":   "./dist/index.d.ts"
+    },
+    "./global": "./dist/global.iife.js"
+  },
+  "files": ["dist", "README.md", "LICENSE"],
+  "scripts": {
+    "build":        "npm run build:lib && npm run build:global",
+    "build:lib":    "vite build",
+    "build:global": "vite build --config vite.global.config.ts",
+    "dev":          "vite build --watch"
+  },
+  "peerDependencies": {
+    "react":     ">=18.0.0",
+    "react-dom": ">=18.0.0"
+  },
+  "devDependencies": {
+    "@types/react":        "^18.0.0",
+    "@types/react-dom":    "^18.0.0",
+    "@vitejs/plugin-react":"^4.0.0",
+    "typescript":          "^5.0.0",
+    "vite":                "^5.0.0",
+    "vite-plugin-dts":     "^3.9.0"
+  }
+}
+
